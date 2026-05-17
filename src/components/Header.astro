@@ -1,0 +1,114 @@
+---
+import ThemeToggle from './ThemeToggle.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const githubURL = 'https://github.com/Iajensen222222/AuraShell';
+---
+
+<header class="header">
+  <div class="container header-inner">
+    <a href={`${base}/`} class="brand" aria-label="AuraShell — home">
+      <svg class="brand-mark" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+        <defs>
+          <linearGradient id="brand-gradient" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="var(--color-accent)" />
+            <stop offset="100%" stop-color="var(--color-accent-hover)" />
+          </linearGradient>
+        </defs>
+        <path d="M12 2 L22 12 L12 22 L2 12 Z" fill="url(#brand-gradient)" />
+        <path d="M12 7 L17 12 L12 17 L7 12 Z" fill="var(--color-bg)" opacity="0.9" />
+      </svg>
+      <span class="brand-name">AuraShell</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <a href={`${base}/#features`} class="nav-link">Features</a>
+      <a href={`${base}/#download`} class="nav-link">Download</a>
+      <a href={`${base}/changelog`} class="nav-link">Changelog</a>
+      <a href={githubURL} class="nav-link" rel="noopener noreferrer" target="_blank">GitHub</a>
+    </nav>
+
+    <div class="header-actions">
+      <ThemeToggle />
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--color-surface);
+    backdrop-filter: var(--blur-acrylic);
+    -webkit-backdrop-filter: var(--blur-acrylic);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    height: 64px;
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--color-text);
+    font-weight: var(--fw-semibold);
+    letter-spacing: -0.01em;
+  }
+
+  .brand:hover {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .brand-mark {
+    flex-shrink: 0;
+  }
+
+  .brand-name {
+    font-size: 18px;
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-left: auto;
+  }
+
+  .nav-link {
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text-secondary);
+    font-size: var(--fs-caption);
+    font-weight: var(--fw-medium);
+    border-radius: var(--radius-md);
+    transition: color var(--duration-fast) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .nav-link:hover {
+    color: var(--color-text);
+    background-color: var(--color-accent-tint);
+    text-decoration: none;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  @media (max-width: 640px) {
+    .nav-link:not(:last-of-type) {
+      display: none;
+    }
+    .nav {
+      gap: var(--space-1);
+    }
+  }
+</style>

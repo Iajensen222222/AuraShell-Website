@@ -1,0 +1,76 @@
+---
+import FeatureCard from './FeatureCard.astro';
+
+const features = [
+  {
+    iconName: 'visualizer' as const,
+    title: 'Audio visualizer',
+    description: 'DirectX 11 FFT spectrum of your system audio. 60 FPS, under 50 ms latency.',
+  },
+  {
+    iconName: 'icons' as const,
+    title: 'Desktop icons',
+    description: 'Replace shortcut and folder icons by dragging an image onto them. Per-icon, reversible.',
+  },
+  {
+    iconName: 'taskbar' as const,
+    title: 'Taskbar animations',
+    description: 'Kinetic spring physics on hover. Scale effects, smooth and OS-native feeling.',
+  },
+  {
+    iconName: 'theme' as const,
+    title: 'Workspace theming',
+    description: 'A different visual theme for each virtual desktop. Switch desktops, switch identity.',
+  },
+];
+---
+
+<section class="features section" id="features">
+  <div class="container">
+    <header class="section-header">
+      <span class="section-eyebrow">Features</span>
+      <h2 class="section-title">Built for people who care about the details.</h2>
+      <p class="section-lede">
+        Four focused modules. Each one does one thing and does it natively, with no electron, no background telemetry, and no nag screens.
+      </p>
+    </header>
+
+    <div class="feature-grid">
+      {features.map((f) => <FeatureCard {...f} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .section-header {
+    max-width: 720px;
+    margin-bottom: var(--space-10);
+  }
+
+  .section-eyebrow {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: var(--fw-semibold);
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-3);
+  }
+
+  .section-title {
+    font-size: var(--fs-h1);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-3);
+  }
+
+  .section-lede {
+    font-size: var(--fs-body-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: var(--space-4);
+  }
+</style>

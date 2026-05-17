@@ -1,0 +1,155 @@
+---
+const screenshots = [
+  { title: 'Audio Visualizer', subtitle: 'Real-time FFT spectrum at 60 FPS', accent: '#4cc2ff' },
+  { title: 'Desktop Icons', subtitle: 'Drag-and-drop icon replacement', accent: '#9c52ff' },
+  { title: 'Taskbar Animations', subtitle: 'Kinetic spring hover effects', accent: '#ff6b9d' },
+  { title: 'Workspace Theming', subtitle: 'Per-desktop visual identity', accent: '#5cd16d' },
+];
+---
+
+<section class="gallery section" id="screenshots">
+  <div class="container">
+    <header class="section-header">
+      <span class="section-eyebrow">Screenshots</span>
+      <h2 class="section-title">A polished look in every corner.</h2>
+      <p class="section-lede">
+        Real screenshots land with the v0.1.0 release. The frames below are placeholders &mdash; the chrome, layout, and theming are exactly what ships.
+      </p>
+    </header>
+
+    <div class="gallery-grid">
+      {screenshots.map((s) => (
+        <figure class="shot">
+          <div class="shot-window" style={`--shot-accent: ${s.accent}`}>
+            <div class="shot-titlebar">
+              <span class="shot-title">AuraShell — {s.title}</span>
+              <div class="shot-controls" aria-hidden="true">
+                <span class="ctl">&minus;</span>
+                <span class="ctl">▢</span>
+                <span class="ctl close">×</span>
+              </div>
+            </div>
+            <div class="shot-body">
+              <div class="shot-glow"></div>
+              <p class="shot-placeholder">Screenshot coming soon</p>
+            </div>
+          </div>
+          <figcaption>
+            <strong>{s.title}</strong>
+            <span>{s.subtitle}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .shot {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin: 0;
+  }
+
+  .shot-window {
+    aspect-ratio: 16 / 10;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border-strong);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--duration-normal) var(--ease-out),
+                box-shadow var(--duration-normal) var(--ease-out);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .shot:hover .shot-window {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .shot-titlebar {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding-inline: var(--space-3);
+    background-color: var(--color-surface-elevated);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .shot-title {
+    font-size: 11px;
+    color: var(--color-text-tertiary);
+    font-weight: var(--fw-medium);
+  }
+
+  .shot-controls {
+    margin-left: auto;
+    display: flex;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--color-text-tertiary);
+    line-height: 1;
+  }
+
+  .ctl {
+    width: 18px;
+    text-align: center;
+  }
+
+  .shot-body {
+    flex: 1;
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklab, var(--shot-accent) 6%, transparent),
+      color-mix(in oklab, var(--shot-accent) 14%, transparent)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .shot-glow {
+    position: absolute;
+    inset: -30%;
+    background: radial-gradient(circle at center, var(--shot-accent), transparent 60%);
+    opacity: 0.18;
+    filter: blur(40px);
+  }
+
+  .shot-placeholder {
+    position: relative;
+    z-index: 1;
+    font-size: var(--fs-caption);
+    color: var(--color-text-tertiary);
+    font-weight: var(--fw-medium);
+    max-width: none;
+    letter-spacing: 0.02em;
+  }
+
+  figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: var(--fs-caption);
+  }
+
+  figcaption strong {
+    color: var(--color-text);
+    font-weight: var(--fw-semibold);
+  }
+
+  figcaption span {
+    color: var(--color-text-secondary);
+  }
+</style>

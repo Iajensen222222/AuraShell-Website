@@ -1,0 +1,89 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  iconName: 'visualizer' | 'icons' | 'taskbar' | 'theme';
+}
+const { title, description, iconName } = Astro.props;
+---
+
+<article class="feature">
+  <div class="feature-icon" aria-hidden="true">
+    {iconName === 'visualizer' && (
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="6" y1="20" x2="6" y2="10"></line>
+        <line x1="12" y1="20" x2="12" y2="4"></line>
+        <line x1="18" y1="20" x2="18" y2="14"></line>
+      </svg>
+    )}
+    {iconName === 'icons' && (
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+        <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+        <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+        <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+      </svg>
+    )}
+    {iconName === 'taskbar' && (
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+      </svg>
+    )}
+    {iconName === 'theme' && (
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="13.5" cy="6.5" r="0.5" fill="currentColor"></circle>
+        <circle cx="17.5" cy="10.5" r="0.5" fill="currentColor"></circle>
+        <circle cx="8.5" cy="7.5" r="0.5" fill="currentColor"></circle>
+        <circle cx="6.5" cy="12.5" r="0.5" fill="currentColor"></circle>
+        <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path>
+      </svg>
+    )}
+  </div>
+  <h3 class="feature-title">{title}</h3>
+  <p class="feature-description">{description}</p>
+</article>
+
+<style>
+  .feature {
+    position: relative;
+    padding: var(--space-6);
+    background-color: var(--color-surface);
+    backdrop-filter: var(--blur-acrylic);
+    -webkit-backdrop-filter: var(--blur-acrylic);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    transition: transform var(--duration-normal) var(--ease-out),
+                box-shadow var(--duration-normal) var(--ease-out),
+                border-color var(--duration-normal) var(--ease-out);
+  }
+
+  .feature:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-border-strong);
+  }
+
+  .feature-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background-color: var(--color-accent-tint);
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+  }
+
+  .feature-title {
+    font-size: var(--fs-h3);
+    margin-bottom: var(--space-2);
+  }
+
+  .feature-description {
+    color: var(--color-text-secondary);
+    font-size: var(--fs-body);
+    max-width: none;
+  }
+</style>

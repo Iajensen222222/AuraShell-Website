@@ -1,0 +1,123 @@
+/* AuraShell design tokens — Fluent-inspired, Windows 11-aligned.
+   Light theme is the default (:root); dark theme via [data-theme="dark"] on <html>. */
+
+:root {
+  /* Color — Light */
+  --color-bg: #f3f3f3;
+  --color-bg-gradient-start: #f7f7fa;
+  --color-bg-gradient-end: #eaeaef;
+  --color-surface: rgba(251, 251, 251, 0.6);
+  --color-surface-solid: #fbfbfb;
+  --color-surface-elevated: rgba(255, 255, 255, 0.8);
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-strong: rgba(0, 0, 0, 0.16);
+  --color-text: #1b1b1b;
+  --color-text-secondary: rgba(0, 0, 0, 0.62);
+  --color-text-tertiary: rgba(0, 0, 0, 0.45);
+  --color-accent: #0067c0;
+  --color-accent-hover: #005299;
+  --color-accent-fg: #ffffff;
+  --color-accent-tint: rgba(0, 103, 192, 0.12);
+
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.06);
+  --shadow-hero: 0 24px 64px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.05);
+
+  /* Effects */
+  --blur-acrylic: blur(40px) saturate(125%);
+
+  /* Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-8: 48px;
+  --space-10: 64px;
+  --space-12: 96px;
+  --space-16: 128px;
+
+  /* Layout */
+  --container-max: 1120px;
+  --container-padding: clamp(20px, 4vw, 48px);
+  --section-padding-y: clamp(64px, 9vw, 128px);
+
+  /* Type */
+  --font-sans: 'Segoe UI Variable Display', 'Segoe UI Variable',
+    system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Helvetica Neue', sans-serif;
+  --font-mono: 'Cascadia Code', 'Cascadia Mono', ui-monospace,
+    SFMono-Regular, Menlo, Consolas, monospace;
+
+  --fs-display: clamp(36px, 6vw, 64px);
+  --fs-h1: clamp(32px, 4.5vw, 48px);
+  --fs-h2: clamp(24px, 3vw, 32px);
+  --fs-h3: clamp(20px, 2.2vw, 24px);
+  --fs-body-lg: 18px;
+  --fs-body: 16px;
+  --fs-caption: 14px;
+  --fs-mono: 14px;
+
+  --lh-display: 1.1;
+  --lh-heading: 1.2;
+  --lh-body: 1.6;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 120ms;
+  --duration-normal: 240ms;
+  --duration-slow: 400ms;
+
+  /* Focus */
+  --focus-ring: 0 0 0 2px var(--color-bg), 0 0 0 4px var(--color-accent);
+
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --color-bg: #1c1c1c;
+  --color-bg-gradient-start: #1f1f23;
+  --color-bg-gradient-end: #141418;
+  --color-surface: rgba(43, 43, 43, 0.6);
+  --color-surface-solid: #2b2b2b;
+  --color-surface-elevated: rgba(60, 60, 60, 0.7);
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-strong: rgba(255, 255, 255, 0.16);
+  --color-text: #ffffff;
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-tertiary: rgba(255, 255, 255, 0.45);
+  --color-accent: #4cc2ff;
+  --color-accent-hover: #76d0ff;
+  --color-accent-fg: #001f3a;
+  --color-accent-tint: rgba(76, 194, 255, 0.16);
+
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  --shadow-hero: 0 24px 64px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
+
+  color-scheme: dark;
+}
+
+/* Respect user's motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

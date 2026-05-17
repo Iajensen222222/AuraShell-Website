@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+const allReleases = await getCollection('releases');
+// Most recent first
+const releases = allReleases.sort((a, b) =>
+  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+);
+
+// Pre-render each entry's <Content> component for use in the template
+const rendered = await Promise.all(
+  releases.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { entry, Content };
+  })
+);
+
+const githubReleasesURL = 'https://github.com/Iajensen222222/AuraShell/releases';
+---
+
+<BaseLayout
+  title="Changelog"
+  pathname="/changelog"
+  description="What's new in AuraShell. Release notes, version history, and download links for every release."
+>
+  <section class="changelog section">
+    <div class="container">
+      <header class="article-header">
+        <span class="kicker">Changelog</span>
+        <h1>Release history</h1>
+        <p class="lede">
+          Every public release of AuraShell. For pre-built MSI installers and source bundles, see <a href={githubReleasesURL} rel="noopener noreferrer" target="_blank">GitHub Releases</a>.
+        </p>
+      </header>
+
+      <ol class="releases">
+        {rendered.map(({ entry, Content }) => {
+          const date = new Date(entry.data.date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            timeZone: 'UTC',
+          });
+          return (
+            <li class="release">
+              <header class="release-header">
+                <h2>
+                  <span>{entry.data.title}</span>
+                  {entry.data.prerelease && <span class="badge">Pre-release</span>}
+                </h2>
+                <p class="meta">
+                  Released <time datetime={entry.data.date}>{date}</time>
+                  <span class="dot">·</span>
+                  <a href={`${githubReleasesURL}/tag/v${entry.data.version}`} rel="noopener noreferrer" target="_blank">v{entry.data.version} on GitHub</a>
+                </p>
+              </header>
+              <div class="prose">
+                <Content />
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .article-header {
+    margin-bottom: var(--space-10);
+    max-width: 72ch;
+  }
+
+  .kicker {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: var(--fw-semibold);
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-3);
+  }
+
+  .article-header h1 {
+    font-size: var(--fs-h1);
+    margin-bottom: var(--space-3);
+  }
+
+  .lede {
+    font-size: var(--fs-body-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .releases {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-10);
+  }
+
+  .release {
+    padding-bottom: var(--space-8);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .release:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .release-header {
+    margin-bottom: var(--space-5);
+  }
+
+  .release-header h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--fs-h2);
+    margin-bottom: var(--space-2);
+  }
+
+  .badge {
+    font-size: 12px;
+    font-weight: var(--fw-semibold);
+    padding: 3px 10px;
+    background-color: var(--color-accent-tint);
+    color: var(--color-accent);
+    border-radius: var(--radius-pill);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .meta {
+    color: var(--color-text-tertiary);
+    font-size: var(--fs-caption);
+    max-width: none;
+  }
+
+  .dot {
+    margin-inline: var(--space-2);
+    color: var(--color-text-tertiary);
+  }
+</style>

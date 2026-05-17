@@ -1,0 +1,271 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const githubReleasesURL = 'https://github.com/Iajensen222222/AuraShell/releases';
+const githubURL = 'https://github.com/Iajensen222222/AuraShell';
+---
+
+<section class="hero" id="download">
+  <div class="container hero-inner">
+    <div class="hero-copy">
+      <span class="hero-eyebrow">v0.1.0 alpha · Windows 11</span>
+      <h1 class="hero-title">Customize every pixel of Windows&nbsp;11.</h1>
+      <p class="hero-subtitle">Free. Open source. No telemetry.</p>
+      <p class="hero-lede">
+        A real-time audio visualizer, drag-and-drop icon changer, kinetic taskbar
+        animations, and per-workspace theming &mdash; all in one native, high-performance app.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href={githubReleasesURL} rel="noopener noreferrer" target="_blank">
+          Download v0.1.0
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+        </a>
+        <a class="btn btn-secondary" href={githubURL} rel="noopener noreferrer" target="_blank">
+          View on GitHub
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="aurora"></div>
+      <div class="hero-frame">
+        <div class="frame-titlebar">
+          <span class="frame-dot"></span>
+          <span class="frame-dot"></span>
+          <span class="frame-dot"></span>
+          <span class="frame-title">AuraShell — Visuals</span>
+        </div>
+        <div class="frame-body">
+          <div class="bars">
+            {Array.from({ length: 24 }).map((_, i) => (
+              <span class="bar" style={`--i: ${i}`}></span>
+            ))}
+          </div>
+          <p class="frame-caption">Real-time audio · 60 FPS · &lt; 50ms latency</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(48px, 8vw, 96px);
+  }
+
+  .hero-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: var(--fw-medium);
+    color: var(--color-accent);
+    background-color: var(--color-accent-tint);
+    border-radius: var(--radius-pill);
+    margin-bottom: var(--space-5);
+  }
+
+  .hero-title {
+    font-size: var(--fs-display);
+    line-height: var(--lh-display);
+    letter-spacing: -0.025em;
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-subtitle {
+    font-size: var(--fs-body-lg);
+    color: var(--color-text);
+    font-weight: var(--fw-medium);
+    margin-bottom: var(--space-3);
+    max-width: none;
+  }
+
+  .hero-lede {
+    font-size: var(--fs-body-lg);
+    color: var(--color-text-secondary);
+    max-width: 48ch;
+    margin-bottom: var(--space-6);
+  }
+
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 12px 20px;
+    font-size: var(--fs-body);
+    font-weight: var(--fw-medium);
+    border-radius: var(--radius-md);
+    transition: background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out),
+                box-shadow var(--duration-fast) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out);
+  }
+
+  .btn:hover { text-decoration: none; }
+  .btn:active { transform: translateY(1px); }
+
+  .btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-accent-fg);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12), inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    color: var(--color-accent-fg);
+  }
+
+  .btn-secondary {
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+    backdrop-filter: var(--blur-acrylic);
+    -webkit-backdrop-filter: var(--blur-acrylic);
+  }
+
+  .btn-secondary:hover {
+    background-color: var(--color-surface-elevated);
+    color: var(--color-text);
+  }
+
+  /* Hero visual frame */
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 16 / 11;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-hero);
+    background: linear-gradient(135deg, #1c1c1c, #0c0c14);
+    isolation: isolate;
+  }
+
+  .aurora {
+    position: absolute;
+    inset: -25%;
+    background: conic-gradient(
+      from 0deg,
+      #0067c0 0%,
+      #4cc2ff 25%,
+      #9c52ff 50%,
+      #ff6b9d 75%,
+      #0067c0 100%
+    );
+    filter: blur(60px);
+    opacity: 0.7;
+    animation: aurora-spin 24s linear infinite;
+    z-index: 0;
+  }
+
+  @keyframes aurora-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-frame {
+    position: absolute;
+    inset: 8%;
+    background: rgba(20, 20, 24, 0.72);
+    backdrop-filter: blur(24px) saturate(140%);
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .frame-titlebar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 32px;
+    padding-inline: 12px;
+    background: rgba(0, 0, 0, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .frame-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .frame-dot:first-child { background: #ff5f57; }
+  .frame-dot:nth-child(2) { background: #febc2e; }
+  .frame-dot:nth-child(3) { background: #28c840; }
+
+  .frame-title {
+    margin-left: auto;
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: var(--fw-medium);
+  }
+
+  .frame-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    color: #fff;
+  }
+
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 80px;
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .bar {
+    flex: 1;
+    background: linear-gradient(180deg, #4cc2ff, #0067c0);
+    border-radius: 2px;
+    animation: bar-pulse 1.4s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 60ms);
+    min-height: 6px;
+    transform-origin: bottom;
+  }
+
+  @keyframes bar-pulse {
+    0%, 100% { transform: scaleY(0.3); opacity: 0.7; }
+    50%      { transform: scaleY(1);   opacity: 1; }
+  }
+
+  .frame-caption {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.55);
+    max-width: none;
+    text-align: center;
+  }
+
+  @media (max-width: 880px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+    .hero-visual {
+      max-width: 560px;
+      margin-inline: auto;
+    }
+  }
+</style>

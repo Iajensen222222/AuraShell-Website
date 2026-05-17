@@ -1,0 +1,73 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Grants the deploy-pages action permission to publish.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment; queue subsequent runs.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build site
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync legal content (privacy policy)
+        # NOTE: the AuraShell Legal/ folder is NOT in this repo. The synced copy
+        # is committed under src/content/legal/. Re-running this step here is a
+        # no-op unless the synced copy is present and the relative path resolves.
+        # On clean CI, this will fail silently with "source not found" — that's
+        # expected; the committed src/content/legal/privacy-policy.md is the
+        # source of truth in this repo.
+        run: npm run sync:legal || true
+
+      - name: Build Astro site
+        run: npm run build
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    name: Deploy to Pages
+    needs: build
+    runs-on: ubuntu-24.04
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+# ─── Repo setup checklist (one-time, after first push) ────────────────────────
+#
+# 1. Go to repo Settings → Pages
+# 2. Under "Build and deployment" → Source: choose "GitHub Actions"
+#    (NOT "Deploy from a branch")
+# 3. Push to main. This workflow will build and deploy.
+# 4. Verify at https://iajensen222222.github.io/AuraShell-Website/
+#
+# ──────────────────────────────────────────────────────────────────────────────

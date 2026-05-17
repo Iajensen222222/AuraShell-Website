@@ -1,0 +1,71 @@
+---
+// Persisted-preference theme toggle. The initial theme is set inline in BaseLayout
+// to avoid a flash of the wrong theme on first paint.
+---
+
+<button
+  id="theme-toggle"
+  type="button"
+  class="theme-toggle"
+  aria-label="Toggle color theme"
+  title="Toggle color theme"
+>
+  {/* Sun (shown in dark mode → click switches to light) */}
+  <svg class="icon icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+  </svg>
+  {/* Moon (shown in light mode → click switches to dark) */}
+  <svg class="icon icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+  </svg>
+</button>
+
+<script is:inline>
+  (function () {
+    const toggle = document.getElementById('theme-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', () => {
+      const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.dataset.theme = next;
+      try {
+        localStorage.setItem('aura-theme', next);
+      } catch (e) { /* localStorage unavailable */ }
+    });
+  })();
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    border: 1px solid transparent;
+    transition: color var(--duration-fast) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out);
+  }
+
+  .theme-toggle:hover {
+    color: var(--color-text);
+    background-color: var(--color-accent-tint);
+    border-color: var(--color-border);
+  }
+
+  .icon {
+    transition: opacity var(--duration-normal) var(--ease-out),
+                transform var(--duration-normal) var(--ease-out);
+  }
+
+  /* Show sun in dark mode, moon in light mode. */
+  .icon-sun { display: none; }
+  .icon-moon { display: block; }
+
+  :global([data-theme='dark']) .icon-sun { display: block; }
+  :global([data-theme='dark']) .icon-moon { display: none; }
+</style>

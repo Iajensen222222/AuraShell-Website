@@ -1,0 +1,78 @@
+---
+const requirements = [
+  { label: 'Windows', value: '11, version 22H2 (build 22621) or later' },
+  { label: 'GPU', value: 'DirectX 11-capable' },
+  { label: 'CPU', value: 'x64 (Intel or AMD)' },
+  { label: 'Disk space', value: '200 MB' },
+  { label: 'Memory', value: '200 MB typical' },
+];
+---
+
+<section class="sysreq section" id="requirements">
+  <div class="container">
+    <header class="section-header">
+      <span class="section-eyebrow">System requirements</span>
+      <h2 class="section-title">Lightweight by design.</h2>
+      <p class="section-lede">
+        AuraShell is native C++20 with DirectX 11 &mdash; not Electron, not a wrapped web app. It uses what it needs and nothing more.
+      </p>
+    </header>
+
+    <dl class="req-list">
+      {requirements.map((r) => (
+        <div class="req-row">
+          <dt>{r.label}</dt>
+          <dd>{r.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<style>
+  .req-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
+    backdrop-filter: var(--blur-acrylic);
+    -webkit-backdrop-filter: var(--blur-acrylic);
+    overflow: hidden;
+  }
+
+  .req-row {
+    display: grid;
+    grid-template-columns: minmax(140px, 220px) 1fr;
+    gap: var(--space-5);
+    padding: var(--space-4) var(--space-5);
+    align-items: baseline;
+  }
+
+  .req-row + .req-row {
+    border-top: 1px solid var(--color-border);
+  }
+
+  dt {
+    font-size: var(--fs-caption);
+    color: var(--color-text-tertiary);
+    font-weight: var(--fw-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--color-text);
+    font-size: var(--fs-body);
+  }
+
+  @media (max-width: 560px) {
+    .req-row {
+      grid-template-columns: 1fr;
+      gap: var(--space-1);
+    }
+  }
+</style>
